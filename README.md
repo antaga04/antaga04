@@ -4,5 +4,6 @@
   <br />
 </div>
 
+<div align="center">
 ![Visitor Count](https://profile-counter.glitch.me/antaga04/count.svg)
-
+</div>
