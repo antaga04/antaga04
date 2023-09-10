@@ -1,14 +1,17 @@
-<!-- "Hero" Header -->
-<div align="center">
-  Hi, I am Adrian Anta. Software Engineer & Full Stack Developer.
-  <!-- <img src="" style="max-width: 100%;" alt="Welcome to my Github Profile" /> -->
-  <br />
-</div>
+![Adrian Anta's GitHub banner image][banner-image]
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/marti%C3%B1o-/)
+[![cubo-rubik-green](https://img.shields.io/badge/web%20portfolio-%23519Faa.svg?&style=for-the-badge&logoColor=white)](https://adrian-anta.netlify.app/)
+[![GitHub antaga04](https://img.shields.io/github/followers/antaga04?label=follow&style=social)](https://github.com/antaga04)
 
-<div align="center">
-  <br />
-  <h2>Visitor Count</h2>
-  
- ![Visitor Count](https://profile-counter.glitch.me/antaga04/count.svg)
+## About me 
+Hello! I'm Adrian, a dedicated Software Engineering student with a passion for crafting visually appealing websites that resonate with users. While I'm currently focused on front-end development, I aspire to become a Full Stack maestro in the future.
 
-</div>
+## Top Languages
+[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=antaga04&border_radius=9&hide_border=true&hide_title=true&langs_count=20&locale=en&show_icons=true&show_owner=true&theme=tokyonight)](https://github.com/antaga04/github-readme-stats)
+
+## Visitor Count
+![Visitor Count](https://profile-counter.glitch.me/antaga04/count.svg)
+
+<!-- Reference Links -->
+[banner-image]: https://github.com/antaga04/antaga04/assets/103943048/f8315e32-5f35-46f2-a785-63cc0b8cab5f
+[counter]: https://komarev.com/ghpvc/?username=antaga04&style=flat-square&color=519FAA
