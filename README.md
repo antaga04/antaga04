@@ -13,5 +13,6 @@ Hello! I'm Adrian, a dedicated Software Engineering student with a passion for c
 ![Visitor Count](https://profile-counter.glitch.me/antaga04/count.svg)
 
 <!-- Reference Links -->
-[banner-image]: https://github.com/antaga04/antaga04/assets/103943048/f8315e32-5f35-46f2-a785-63cc0b8cab5f
+[banner-image]: https://github.com/antaga04/antaga04/assets/103943048/f3ca4b28-4f55-4771-b6b5-99e3323339e8
+
 [counter]: https://komarev.com/ghpvc/?username=antaga04&style=flat-square&color=519FAA
