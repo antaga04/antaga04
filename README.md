@@ -5,15 +5,11 @@
 
 ## About me
 
-Hello! I'm Adrian, a dedicated Software Engineering student with a passion for crafting visually appealing websites that resonate with users. While I'm currently focused on front-end development, I aspire to become a Full Stack maestro in the future.
+Hello! I'm Adrian, a dedicated Software Engineering with a passion for crafting visually appealing websites that resonate with users. While I enjoy front-end development the most, I quite like backend as well because I can create complete apps that help people.
 
 ## Top Languages
 
 [![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=antaga04&border_radius=9&hide_border=true&hide_title=true&langs_count=20&locale=en&show_icons=true&show_owner=true&theme=tokyonight)](https://github.com/antaga04/github-readme-stats)
-
-## Visitor Count
-
-![Visitor Count](https://profile-counter.glitch.me/antaga04/count.svg)
 
 <!-- Reference Links -->
 
