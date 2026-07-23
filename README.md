@@ -7,9 +7,13 @@
 
 Hello! I'm Adrian, a dedicated Software Engineering with a passion for crafting visually appealing websites that resonate with users. While I enjoy front-end development the most, I quite like backend as well because I can create complete apps that help people.
 
-## Top Languages
+<a href="https://github.com/Antaga04/Antaga04">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Antaga04/Antaga04/main/dark_mode.svg">
+    <img alt="Adrian Anta's GitHub Profile README" src="https://raw.githubusercontent.com/Antaga04/Antaga04/main/light_mode.svg">
+  </picture>
+</a>
 
-[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=antaga04&border_radius=9&hide_border=true&hide_title=true&langs_count=20&locale=en&show_icons=true&show_owner=true&theme=tokyonight)](https://github.com/antaga04/github-readme-stats)
 
 <!-- Reference Links -->
 
