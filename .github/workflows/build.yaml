@@ -8,11 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
       - name: Get Python 3.8
         uses: actions/setup-python@v5
         with:
@@ -37,4 +39,5 @@ jobs:
           git config --global user.email "github-actions-bot@antaga04.github.io"
           git config --global user.name "Antaga04/GitHub-Actions-Bot"
           git commit -m "Updated README" -a || echo "No changes to commit"
+          git pull --rebase
           git push
