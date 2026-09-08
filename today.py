@@ -14,6 +14,9 @@ import hashlib
 HEADERS = {'authorization': 'token '+ os.environ['ACCESS_TOKEN']}
 USER_NAME = os.environ['USER_NAME'] # 'Antaga04'
 QUERY_COUNT = {'user_getter': 0, 'follower_getter': 0, 'graph_repos_stars': 0, 'recursive_loc': 0, 'graph_commits': 0, 'loc_query': 0}
+RETRYABLE_STATUS = (429, 500, 502, 503, 504)  # GitHub's GraphQL API returns these intermittently on expensive queries
+MAX_RETRIES = 5
+REQUEST_TIMEOUT = 60
 
 
 def daily_readme(birthday):
@@ -41,11 +44,33 @@ def format_plural(unit):
     return 's' if unit != 1 else ''
 
 
+def post_query(query, variables):
+    """
+    Posts a query to GitHub's GraphQL API, retrying with exponential backoff on the
+    transient errors (502/503/504 and friends) that GitHub returns at random when a
+    query is expensive. Returns the last response received.
+    """
+    for attempt in range(MAX_RETRIES):
+        last_attempt = attempt == MAX_RETRIES - 1
+        try:
+            request = requests.post('https://api.github.com/graphql', json={'query': query, 'variables':variables}, headers=HEADERS, timeout=REQUEST_TIMEOUT)
+        except requests.exceptions.RequestException as error:
+            if last_attempt: raise
+            print('Request failed with', repr(error), '- retrying in', 2 ** attempt, 'seconds')
+            time.sleep(2 ** attempt)
+            continue
+        if request.status_code not in RETRYABLE_STATUS or last_attempt:
+            return request
+        print('Request failed with a', request.status_code, '- retrying in', 2 ** attempt, 'seconds')
+        time.sleep(2 ** attempt)
+    return request
+
+
 def simple_request(func_name, query, variables):
     """
     Returns a request, or raises an Exception if the response does not succeed.
     """
-    request = requests.post('https://api.github.com/graphql', json={'query': query, 'variables':variables}, headers=HEADERS)
+    request = post_query(query, variables)
     if request.status_code == 200:
         return request
     raise Exception(func_name, ' has failed with a', request.status_code, request.text, QUERY_COUNT)
@@ -153,7 +178,7 @@ def recursive_loc(owner, repo_name, data, cache_comment, addition_total=0, delet
         }
     }'''
     variables = {'repo_name': repo_name, 'owner': owner, 'cursor': cursor}
-    request = requests.post('https://api.github.com/graphql', json={'query': query, 'variables':variables}, headers=HEADERS) # I cannot use simple_request(), because I want to save the file before raising Exception
+    request = post_query(query, variables) # I cannot use simple_request(), because I want to save the file before raising Exception
     if request.status_code == 200:
         if request.json()['data']['repository']['defaultBranchRef'] != None: # Only count commits if repo isn't empty
             return loc_counter_one_repo(owner, repo_name, data, cache_comment, request.json()['data']['repository']['defaultBranchRef']['target']['history'], addition_total, deletion_total, my_commits)
@@ -180,7 +205,7 @@ def loc_counter_one_repo(owner, repo_name, data, cache_comment, history, additio
     else: return recursive_loc(owner, repo_name, data, cache_comment, addition_total, deletion_total, my_commits, history['pageInfo']['endCursor'])
 
 
-def loc_query(owner_affiliation, comment_size=0, force_cache=False, cursor=None, edges=[]):
+def loc_query(owner_affiliation, comment_size=0, force_cache=False, cursor=None, edges=None):
     """
     Uses GitHub's GraphQL v4 API to query all the repositories I have access to (with respect to owner_affiliation)
     Queries 60 repos at a time, because larger queries give a 502 timeout error and smaller queries send too many
@@ -215,6 +240,7 @@ def loc_query(owner_affiliation, comment_size=0, force_cache=False, cursor=None,
             }
         }
     }'''
+    if edges is None: edges = [] # a mutable default would leak repos between calls
     variables = {'owner_affiliation': owner_affiliation, 'login': USER_NAME, 'cursor': cursor}
     request = simple_request(loc_query.__name__, query, variables)
     if request.json()['data']['user']['repositories']['pageInfo']['hasNextPage']:   # If repository data has another page
